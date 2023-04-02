@@ -13,7 +13,7 @@ class Form_1 extends StatelessWidget {
   final _textController7 = TextEditingController();
   final _textController8 = TextEditingController();
 
-  final String _Kunde = "12";
+  final String _Kunde = "";
 
   @override
   Widget build(BuildContext context) {
