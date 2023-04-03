@@ -1,19 +1,37 @@
 import "package:flutter/material.dart";
+import 'package:lb3/TicketLib.dart';
+import 'package:lb3/ticket.dart';
 
-class Form_1 extends StatelessWidget {
+class Form_1 extends StatefulWidget {
   Form_1({Key? key}) : super(key: key);
 
+  @override
+  State<Form_1> createState() => _Form_1State();
+}
+
+class _Form_1State extends State<Form_1> {
+
+TicketLib ticketList = TicketLib();
+
   final _textController0 = TextEditingController();
+
   final _textController1 = TextEditingController();
+
   final _textController2 = TextEditingController();
+
   final _textController3 = TextEditingController();
+
   final _textController4 = TextEditingController();
+
   final _textController5 = TextEditingController();
+
   final _textController6 = TextEditingController();
+
   final _textController7 = TextEditingController();
+
   final _textController8 = TextEditingController();
 
-  final String _Kunde = "";
+  String _Kunde = "";
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +45,11 @@ class Form_1 extends StatelessWidget {
           children: [
             Column(
               children: [
+                Container(
+                  child: Center(
+                    child: Text("Test"),
+                  ),
+                ),
                 TextField(
                   controller: _textController0,
                   decoration: InputDecoration(
@@ -168,11 +191,16 @@ class Form_1 extends StatelessWidget {
                     ),
                   ),
                 ),
-                MaterialButton(onPressed: () {
-                  _Kunde = _textController0.text;
-                },
+                MaterialButton(
+                  onPressed: () {
+                    setState(() {
+                      Ticket t = Ticket();
+                      t.Kunde = _textController0.text;
+                      ticketList.addTicket(t);
+                    });
+                  },
                   color: Colors.blue,
-                    child: const Text("Post"),
+                  child: const Text("Post"),
                 ),
               ],
             ),

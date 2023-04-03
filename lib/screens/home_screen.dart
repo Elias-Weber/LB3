@@ -1,11 +1,13 @@
 import "package:flutter/material.dart";
 import "package:flutter/rendering.dart";
 import "package:lb3/screens/screen_2.dart";
+import 'package:lb3/TicketLib.dart';
+import 'package:lb3/ticket.dart';
 
 class HomeScreen extends StatelessWidget {
    HomeScreen({Key? key}) : super(key: key);
 
-  Form_1 form_1 = Form_1();
+   TicketLib ticketList = TicketLib();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,18 @@ class HomeScreen extends StatelessWidget {
                 },
               ),
             ),
-            Text(Form_1._Kunde),
+            Align(
+              alignment: Alignment.center,
+              child: ListView.builder(
+
+                itemCount: ticketList.ticketList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title: Text(ticketList.ticketList[index].Kunde),
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),
