@@ -11,6 +11,8 @@ void main() async {
   var _myAuftragNR = await Hive.openBox("myAuftragNR");
 
 
+_myAuftragNR.clear();
+_myAuftrag.clear();
 
 
   runApp(const MyApp());

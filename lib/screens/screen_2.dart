@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lb3/TicketLib.dart';
+import 'package:lb3/screens/home_screen.dart';
 import 'package:lb3/ticket.dart';
 
 class Form_1 extends StatefulWidget {
@@ -32,6 +33,9 @@ class _Form_1State extends State<Form_1> {
 
   final _textController8 = TextEditingController();
 
+  bool status = false;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,9 +49,7 @@ class _Form_1State extends State<Form_1> {
             Column(
               children: [
                 Container(
-                  child: Center(
-                    child: Text("Test"),
-                  ),
+                  child: Center(),
                 ),
                 TextField(
                   controller: _textController0,
@@ -192,11 +194,17 @@ class _Form_1State extends State<Form_1> {
                 ),
                 MaterialButton(
                   onPressed: () {
+                    setState(() {
+                      status = true;
+                    });
+
+
+
                     int auftragNR = _myAuftrag.length;
                     _myAuftragNR.add(auftragNR);
 
-
                     print(auftragNR);
+                    print(_myAuftragNR);
                     var auftragList = [];
                     auftragList.add(_textController0.text);
                     auftragList.add(_textController1.text);
@@ -209,13 +217,40 @@ class _Form_1State extends State<Form_1> {
                     auftragList.add(_textController8.text);
 
                     _myAuftrag.put(auftragNR, auftragList);
-                    var myHiveList = _myAuftrag.get(1);
+                    var myHiveList = _myAuftrag.get(auftragNR);
                     myHiveList.forEach((myHiveList) {
                       print(myHiveList);
+
+
+                      _textController0.clear();
+                      _textController1.clear();
+                      _textController2.clear();
+                      _textController3.clear();
+                      _textController4.clear();
+                      _textController5.clear();
+                      _textController6.clear();
+                      _textController7.clear();
+                      _textController8.clear();
+
+
+
                     });
                   },
                   color: Colors.blue,
                   child: Text("Speichern"),
+                ),
+
+                Visibility(
+                  visible: status,
+                  child: ElevatedButton(
+                    child: Text("Zurück zum Hauptmenü"),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
