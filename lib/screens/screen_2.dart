@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lb3/TicketLib.dart';
 import 'package:lb3/ticket.dart';
 
@@ -10,8 +11,8 @@ class Form_1 extends StatefulWidget {
 }
 
 class _Form_1State extends State<Form_1> {
-
-TicketLib ticketList = TicketLib();
+  final _myAuftrag = Hive.box("myAuftrag");
+  final _myAuftragNR = Hive.box("myAuftragNR");
 
   final _textController0 = TextEditingController();
 
@@ -30,8 +31,6 @@ TicketLib ticketList = TicketLib();
   final _textController7 = TextEditingController();
 
   final _textController8 = TextEditingController();
-
-  String _Kunde = "";
 
   @override
   Widget build(BuildContext context) {
@@ -193,14 +192,30 @@ TicketLib ticketList = TicketLib();
                 ),
                 MaterialButton(
                   onPressed: () {
-                    setState(() {
-                      Ticket t = Ticket();
-                      t.Kunde = _textController0.text;
-                      ticketList.addTicket(t);
+                    int auftragNR = _myAuftrag.length;
+                    _myAuftragNR.add(auftragNR);
+
+
+                    print(auftragNR);
+                    var auftragList = [];
+                    auftragList.add(_textController0.text);
+                    auftragList.add(_textController1.text);
+                    auftragList.add(_textController2.text);
+                    auftragList.add(_textController3.text);
+                    auftragList.add(_textController4.text);
+                    auftragList.add(_textController5.text);
+                    auftragList.add(_textController6.text);
+                    auftragList.add(_textController7.text);
+                    auftragList.add(_textController8.text);
+
+                    _myAuftrag.put(auftragNR, auftragList);
+                    var myHiveList = _myAuftrag.get(1);
+                    myHiveList.forEach((myHiveList) {
+                      print(myHiveList);
                     });
                   },
                   color: Colors.blue,
-                  child: const Text("Post"),
+                  child: Text("Speichern"),
                 ),
               ],
             ),
