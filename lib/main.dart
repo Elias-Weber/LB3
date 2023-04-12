@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lb3/screens/home_screen.dart';
 import 'package:lb3/screens/screen_2.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:lb3/methods.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -11,8 +12,7 @@ void main() async {
   var _myAuftragNR = await Hive.openBox("myAuftragNR");
 
 
-_myAuftragNR.clear();
-_myAuftrag.clear();
+
 
 
   runApp(const MyApp());
