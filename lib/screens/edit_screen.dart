@@ -2,16 +2,42 @@ import "package:flutter/material.dart";
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lb3/screens/home_screen.dart';
 
-class Form_1 extends StatefulWidget {
-  Form_1({Key? key}) : super(key: key);
+class Edit extends StatefulWidget {
+  final int index;
+
+  const Edit({Key? key, required this.index}) : super(key: key);
 
   @override
-  State<Form_1> createState() => _Form_1State();
+  State<Edit> createState() => _EditState();
 }
 
-class _Form_1State extends State<Form_1> {
+class _EditState extends State<Edit> {
+  late int index;
+
   final _myAuftrag = Hive.box("myAuftrag");
   final _myAuftragNR = Hive.box("myAuftragNR");
+
+  @override
+  void initState() {
+    super.initState();
+    index = widget.index;
+    writeInForms(index);
+  }
+
+  void writeInForms(int index) {
+    var myList = _myAuftrag.get(index);
+    setState(() {
+      _textController0.text = myList[0];
+      _textController1.text = myList[1];
+      _textController2.text = myList[2];
+      _textController3.text = myList[3];
+      _textController4.text = myList[4];
+      _textController5.text = myList[5];
+      _textController6.text = myList[6];
+      _textController7.text = myList[7];
+      _textController8.text = myList[8];
+    });
+  }
 
   final _textController0 = TextEditingController();
 
@@ -33,12 +59,11 @@ class _Form_1State extends State<Form_1> {
 
   bool status = false;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Auftrag hinzufügen"),
+        title: const Text("Auftrag bearbeiten"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -196,13 +221,6 @@ class _Form_1State extends State<Form_1> {
                       status = true;
                     });
 
-
-
-                    int auftragNR = _myAuftrag.length;
-                    _myAuftragNR.add(auftragNR);
-
-                    print(auftragNR);
-                    print(_myAuftragNR);
                     var auftragList = [];
                     auftragList.add(_textController0.text);
                     auftragList.add(_textController1.text);
@@ -214,47 +232,32 @@ class _Form_1State extends State<Form_1> {
                     auftragList.add(_textController7.text);
                     auftragList.add(_textController8.text);
 
-                    _myAuftrag.put(auftragNR, auftragList);
-                    var myHiveList = _myAuftrag.get(auftragNR);
-                    myHiveList.forEach((myHiveList) {
-                      print(myHiveList);
+                    _myAuftrag.put(index, auftragList);
 
+                    _textController0.clear();
+                    _textController1.clear();
+                    _textController2.clear();
+                    _textController3.clear();
+                    _textController4.clear();
+                    _textController5.clear();
+                    _textController6.clear();
+                    _textController7.clear();
+                    _textController8.clear();
 
-                      _textController0.clear();
-                      _textController1.clear();
-                      _textController2.clear();
-                      _textController3.clear();
-                      _textController4.clear();
-                      _textController5.clear();
-                      _textController6.clear();
-                      _textController7.clear();
-                      _textController8.clear();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                    );
 
-
-
-                    });
                   },
                   color: Colors.blue,
-                  child: Text("Speichern"),
+                  child: Text("Uebernehmen"),
                 ),
-
-                Visibility(
-                  visible: status,
-                  child: ElevatedButton(
-                    child: Text("Zurück zum Hauptmenü"),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()),
-                      );
-                    },
-                  ),
-                ),
-              ], //Colum Children
-            ),
-          ],  //ListView Children
-        ),
-      ),
-    );
+              ], //Culum Chirlden  //Children
+            ), //Colum
+          ], //ListView Children
+        ), //ListView
+      ), //Padding
+    ); // Scaffold
   } //Widget
-}  //Class
+} //Class

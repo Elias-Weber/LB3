@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import "package:lb3/screens/screen_2.dart";
+
 
 class Method {
   final _Auftrag = Hive.box("myAuftrag");
@@ -30,3 +30,4 @@ class Method {
     return a;
   }
 }
+

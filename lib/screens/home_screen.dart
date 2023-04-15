@@ -1,10 +1,9 @@
-import "package:bordered_text/bordered_text.dart";
 import "package:flutter/material.dart";
 import "package:flutter/rendering.dart";
-import "package:google_fonts/google_fonts.dart";
 import "package:lb3/screens/screen_2.dart";
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lb3/methods.dart';
+import 'package:lb3/screens/edit_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -27,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
         shape: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.zero)),
         child: Text("Auftrag Hinzufügen"),
         onPressed: () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => Form_1()),
           );
@@ -50,20 +49,52 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: ListTile(
-                    leading: Text(
-                      ("$Kunde, $Beschreibung"),
-                    ),
-                    trailing: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          _Auftrag.delete(index);
-                        });
-                      },
-                      child: Icon(
-                        Icons.delete,
+                  child: ListView(
+                    children: [
+
+                      Row(
+                        children: [
+                          Flexible(
+                            flex: 1,
+                            child: ListTile(
+                              leading: Text(
+                                ("$Kunde"),
+                              ),
+                              trailing: ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _Auftrag.delete(index);
+                                  });
+                                },
+                                child: Icon(
+                                  Icons.delete,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: ListTile(
+                              leading: Text(
+                                ("$Beschreibung"),
+                              ),
+                              trailing: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => Edit(index: index,)),
+                                  );
+                                },
+                                child: Icon(
+                                  Icons.edit,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
+
+                    ],
                   ),
                 ),
               );
